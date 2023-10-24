@@ -23,7 +23,7 @@ import services.SalleService;
  */
 @WebServlet(name = "MachineController", urlPatterns = {"/MachineController"})
 public class MachineController extends HttpServlet {
-
+    
     MachineService ms = new MachineService();
     SalleService ss = new SalleService();
 
@@ -47,22 +47,24 @@ public class MachineController extends HttpServlet {
                 String ref = request.getParameter("ref");
                 String marque = request.getParameter("marque");
                 double prix = Double.parseDouble(request.getParameter("prix"));
-                Machine mUpdate = new Machine();
-                mUpdate.setId(id);
+                Salle s = ss.findById(Integer.parseInt(request.getParameter("salleId")));
+                Machine mUpdate = ms.findById(id);
                 mUpdate.setRef(ref);
                 mUpdate.setMarque(marque);
                 mUpdate.setPrix(prix);
+                mUpdate.setSalle(s);
                 ms.update(mUpdate);
-
+                
             }
-
+            
         } else {
+            
             String ref = request.getParameter("ref");
             String marque = request.getParameter("marque");
             double prix = Double.parseDouble(request.getParameter("prix"));
-
-            ms.create(new Machine(ref, marque, prix));
-
+            Salle s = ss.findById(Integer.parseInt(request.getParameter("salleId")));
+            ms.create(new Machine(ref, marque, prix, s));
+            
         }
         response.sendRedirect("machines.jsp");
     }

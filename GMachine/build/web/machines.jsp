@@ -1,11 +1,7 @@
-<%-- 
-    Document   : machines
-    Created on : 24 oct. 2023, 17:31:52
-    Author     : HP
---%>
-
 <%@page import="entities.Machine"%>
+<%@page import="entities.Salle"%>
 <%@page import="services.MachineService"%>
+<%@page import="services.SalleService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,6 +29,21 @@
                     <td><input type="text" name="prix" value="" /></td>
                 </tr>
                 <tr>
+                    <td>Salle:</td>
+                    <td>
+                        <select name="salleId">
+                            <%
+                                SalleService ss = new SalleService();
+                                for (Salle salle : ss.findAll()) {
+                            %>
+                            <option value="<%= salle.getId() %>"><%= salle.getCode()%></option>
+                            <%
+                                }
+                            %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td></td>
                     <td><input type="submit" value="Ajouter" /><input type="submit" value="Annuler" /></td>
                 </tr>
@@ -48,6 +59,7 @@
                         <th>REF</th>
                         <th>MARQUE</th>
                         <th>PRIX</th>
+                        <th>SALLE</th>
                         <th>Modifier</th>
                         <th>Supprimer</th>
                     </tr>
@@ -55,15 +67,16 @@
                 <tbody>
                     <%
                         MachineService ms = new MachineService();
-                        for(Machine m : ms.findAll()) {
+                        for (Machine m : ms.findAll()) {
                     %>
                     <tr>
                         <td><%= m.getId() %></td>
                         <td><%= m.getRef() %></td>
                         <td><%= m.getMarque() %></td>
                         <td><%= m.getPrix() %></td>
-                        <td><a href="MachineController?op=delete&id=<%=m.getId()%>">Supprimer</a></td>
-                        <td><a href="MachineController?op=update&id=<%=m.getId()%>">Modifier</a></td>
+                        <td><%= m.getSalle().getCode() %></td>
+                        <td><a href="MachineController?op=delete&id=<%= m.getId() %>">Supprimer</a></td>
+                        <td><a href="MachineController?op=update&id=<%= m.getId() %>">Modifier</a></td>
                     </tr>
                     <%
                         }
