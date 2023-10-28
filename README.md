@@ -52,7 +52,11 @@ Contributions are welcome! If you'd like to improve or extend this project, feel
 For questions or assistance, please contact me at fezzazimohamed22@gmail.com.
 
 ## Screenshots
-<img width="930" alt="image" src="https://github.com/MaskedFezz/TpJSPServlet/assets/130797834/9167eb09-e5e7-43cb-811f-c868fb4d6531">
+<img width="960" alt="image" src="https://github.com/MaskedFezz/TpJSPServlet/assets/130797834/8691ce27-d936-4317-88ce-8771f9f717e9">
+<img width="960" alt="image" src="https://github.com/MaskedFezz/TpJSPServlet/assets/130797834/1ab088ee-94a1-48dc-905c-169aa8521cd3">
+<img width="960" alt="image" src="https://github.com/MaskedFezz/TpJSPServlet/assets/130797834/7eff0310-3424-4535-913e-5a2bcc185818">
+
+
 
 
 
