@@ -39,22 +39,29 @@ public class MachineController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("op") != null) {
-            if (request.getParameter("op").equals("delete")) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                ms.delete(ms.findById(id));
-            } else if (request.getParameter("op").equals("update")) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                String ref = request.getParameter("ref");
-                String marque = request.getParameter("marque");
-                double prix = Double.parseDouble(request.getParameter("prix"));
-                Salle s = ss.findById(Integer.parseInt(request.getParameter("salleId")));
-                Machine mUpdate = ms.findById(id);
-                mUpdate.setRef(ref);
-                mUpdate.setMarque(marque);
-                mUpdate.setPrix(prix);
-                mUpdate.setSalle(s);
-                ms.update(mUpdate);
-                
+            switch (request.getParameter("op")) {
+                case "delete":
+                    {
+                        int id = Integer.parseInt(request.getParameter("id"));
+                        ms.delete(ms.findById(id));
+                        break;
+                    }
+                case "update":
+                    {
+                        System.out.println("===============================================================================");
+                        int id = Integer.parseInt(request.getParameter("id"));
+                        String ref = request.getParameter("ref");
+                        String marque = request.getParameter("marque");
+                        double prix = Double.parseDouble(request.getParameter("prix"));
+                        Salle s = ss.findById(Integer.parseInt(request.getParameter("salleId")));
+                        Machine mUpdate = ms.findById(id);
+                        mUpdate.setRef(ref);
+                        mUpdate.setMarque(marque);
+                        mUpdate.setPrix(prix);
+                        mUpdate.setSalle(s);
+                        ms.update(mUpdate);
+                        break;
+                    }
             }
             
         } else {

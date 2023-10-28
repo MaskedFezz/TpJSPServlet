@@ -11,6 +11,7 @@
         <link href="CSS/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <jsp:include page="main.jsp"/>
         <form action="MachineController" method="">
 
             <fieldset>
@@ -18,8 +19,7 @@
                 <table border="0">
                     <tr>
                         <td>Ref:</td>
-                        <td><input type="text" name="ref" value="" /></td>
-                    </tr>
+                        <td><input type="text" name="ref" value="<%= request.getAttribute("ref")%>" /></td>                    </tr>
                     <tr>
                         <td>Marque:</td>
                         <td><input type="text" name="marque" value="" /></td>
@@ -31,7 +31,7 @@
                     <tr>
                         <td>Salle:</td>
                         <td>
-                            <select name="salleId">
+                            <select name="salleId" class="box">
                                 <%
                                     SalleService ss = new SalleService();
                                     for (Salle salle : ss.findAll()) {
@@ -45,7 +45,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><input type="submit" value="Ajouter" /><input type="submit" value="Annuler" /></td>
+                        <td><input type="submit" value="Ajouter" /><input type="reset" value="Annuler" /></td>
                     </tr>
                 </table>
             </fieldset>
@@ -75,8 +75,8 @@
                             <td><%= m.getMarque()%></td>
                             <td><%= m.getPrix()%></td>
                             <td><%= m.getSalle().getCode()%></td>
-                            <td><a href="MachineController?op=delete&id=<%= m.getId()%>">Supprimer</a></td>
-                            <td><a href="MachineController?op=update&id=<%= m.getId()%>">Modifier</a></td>
+                            <td><a href="MachineController?op=delete&id=<%= m.getId()%>" >Supprimer</a></td>
+                            <td><a href="MachineController?op=update&id=<%= m.getId()%>&ref=<%= request.getParameter("ref")%>&marque=<%= request.getParameter("marque")%>&prix=<%= request.getParameter("prix")%>">Modifier</a></td>
                         </tr>
                         <%
                             }

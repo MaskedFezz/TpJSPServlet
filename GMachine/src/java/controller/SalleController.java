@@ -8,6 +8,7 @@ package controller;
 import entities.Salle;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,39 +27,51 @@ public class SalleController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("op") != null) {
+
             if (request.getParameter("op").equals("delete")) {
                 int id = Integer.parseInt(request.getParameter("id"));
+                Salle salleToDelete = salleService.findById(id);
+                System.out.println(id);
+
+                System.out.println(salleService.findById(id));
                 salleService.delete(salleService.findById(id));
+                response.sendRedirect("salles.jsp");
+
             } else if (request.getParameter("op").equals("update")) {
                 int id = Integer.parseInt(request.getParameter("id"));
-                String code = request.getParameter("code");
-                Salle salleUpdate = new Salle();
-                salleUpdate.setId(id);
-                salleUpdate.setCode(code);
-  
-
-                salleService.update(salleUpdate);
+                Salle salleToUpdate = salleService.findById(id);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("salles.jsp");
+                request.setAttribute("room", salleToUpdate);
+                dispatcher.forward(request, response);
             }
-        } else {
+         else if (request.getParameter("op").equals("Ajouter")) {
             String code = request.getParameter("code");
             Salle newSalle = new Salle();
             newSalle.setCode(code);
             salleService.create(newSalle);
+            response.sendRedirect("salles.jsp");
+
+        } else if (request.getParameter("op").equals("Modifier")) {
+            int id = Integer.parseInt(request.getParameter("roomId"));
+            String code = request.getParameter("code");
+            Salle ns = salleService.findById(id);
+            ns.setCode(code);
+            salleService.update(ns);
         }
-        response.sendRedirect("salles.jsp");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        System.out.println("get");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        System.out.println("post");
     }
 
     @Override
